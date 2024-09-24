@@ -34,14 +34,41 @@ class Teacher implements TeacherInterface {
     }
 }
 
-function createEmployee(salary: number | string): Director | Teacher {
-    if (typeof salary === 'number' && salary < 500) {
-        return new Teacher();
-    } else {
-        return new Director();
-    }
+function createEmployee(salary: number | string): Teacher | Director {
+    if (typeof salary === "number" && salary < 500) return new Teacher();
+  
+    return new Director();
+  }
+
+// console.log(createEmployee(200));
+// console.log(createEmployee(1000));
+// console.log(createEmployee('$500'));
+
+function isDirector(employee: TeacherInterface | DirectorInterface): employee is Director {
+    return (employee as Director).workDirectorTasks !== undefined;
 }
 
-console.log(createEmployee(200));
-console.log(createEmployee(1000));
-console.log(createEmployee('$500'));
+function executeWork(employee: DirectorInterface | TeacherInterface): string {
+    const message = isDirector(employee) 
+      ? employee.workDirectorTasks() 
+      : employee.workTeacherTasks();
+  
+    console.log(message);
+    return message;
+  }
+  
+  
+
+// executeWork(createEmployee(200));
+// executeWork(createEmployee(1000));
+
+type Subjects = "Math" | "History";
+
+function teachClass(todayClass: Subjects): string {
+    if (todayClass === "Math") return 'Teaching Math';
+    if (todayClass === "History") return 'Teaching History';
+    return 'Subject not found';
+}
+
+// console.log(teachClass("Math"));
+// console.log(teachClass("History"));
