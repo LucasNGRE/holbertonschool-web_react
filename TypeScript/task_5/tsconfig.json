@@ -8,6 +8,6 @@
       "allowJs": true,
       "moduleResolution": "node",
       "types": ["node", "jest"],
-      "typeRoots": ["node_modules/@types"],
+      "typeRoots": ["node_modules/@types"]
     }
   }
