@@ -16,13 +16,11 @@ function App() {
       </div>
       <div className="App-body">
         <p>Login to access the full dashboard</p>
-        <form>
-          <label htmlFor="email">Email:</label>
-          <input type="email" id="email" name="email" />
-          <label htmlFor="password" style={{ marginLeft: '10px' }}>Password:</label>
-          <input type="password" id="password" name="password" />
-          <button type="submit" style={{ marginLeft: '10px' }}>OK</button>
-        </form>
+        <label htmlFor="email">Email:</label>
+        <input type="email" id="email" name="email" />
+        <label htmlFor="password">Password:</label>
+        <input type="password" id="password" name="password" />
+        <button>OK</button>
       </div>
       <div className="App-footer">
         <p>{getFooterCopy(true)} - {getCurrentYear()}</p>
