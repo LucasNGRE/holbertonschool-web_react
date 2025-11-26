@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-roboto: "Roboto", sans-serif;
+  --font-family: "Roboto", sans-serif;
 
   --color-table-header: #deb5b5;
   --color-table-rows: #cdcdcd;
@@ -10,9 +10,8 @@
   --color-urgent-notification-item: red;
 }
 
-/* Set Roboto as default font for the entire app */
 @layer base {
   body {
-    font-family: var(--font-roboto);
+    font-family: var(--font-family);
   }
 }
