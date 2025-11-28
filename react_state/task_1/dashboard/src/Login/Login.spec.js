@@ -1,5 +1,5 @@
 import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event'
+import userEvent from '@testing-library/user-event';
 import Login from './Login';
 
 test('testing signin form elements', () => {
@@ -7,17 +7,17 @@ test('testing signin form elements', () => {
 
   const emailLabelElement = screen.getByLabelText(/email/i);
   const passwordLabelElement = screen.getByLabelText(/password/i);
-  const buttonElementText = screen.getByRole('button', { name: /OK/i });
+  const submitInput = screen.getByRole('button', { name: /OK/i }); // mis à jour
   const inputElements = screen.getAllByLabelText(/email|password/i);
 
   expect(inputElements).toHaveLength(2);
   expect(emailLabelElement).toBeInTheDocument();
   expect(passwordLabelElement).toBeInTheDocument();
-  expect(buttonElementText).toBeInTheDocument();
+  expect(submitInput).toBeInTheDocument();
 });
 
 test('it should check that the email input element will be focused whenever the associated label is clicked', async () => {
-  render(<Login />)
+  render(<Login />);
 
   const emailInput = screen.getByLabelText(/Email/i);
   const emailLabel = screen.getByText(/Email/i);
@@ -27,10 +27,10 @@ test('it should check that the email input element will be focused whenever the 
   await waitFor(() => {
     expect(emailInput).toHaveFocus();
   });
-})
+});
 
 test('it should check that the password input element will be focused whenver the associated label is clicked', async () => {
-  render(<Login />)
+  render(<Login />);
 
   const passwordLabel = screen.getByText(/Password/i);
   const passwordInput = screen.getByLabelText(/Password/i);
