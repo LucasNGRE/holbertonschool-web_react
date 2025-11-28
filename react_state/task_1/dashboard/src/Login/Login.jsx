@@ -123,21 +123,23 @@ handleChangePassword = (e) => {
         />
 
         {/* Submit input activé uniquement quand enableSubmit est true */}
-        <input
-          type="submit"
-          value="OK"
-          disabled={!this.state.enableSubmit}
-          className="
-            cursor-pointer
-            border
-            px-1
-            rounded
-            sm:ml-2
-            w-fit
-            max-[520px]:self-start
-            max-[520px]:mt-2
-          "
-        />
+        <button
+        type="submit"
+        disabled={!this.state.enableSubmit}
+        className="
+          cursor-pointer
+          border
+          px-1
+          rounded
+          sm:ml-2
+          w-fit
+          max-[520px]:self-start
+          max-[520px]:mt-2
+        "
+      >
+        OK
+      </button>
+
       </form>
     </div>
   );
