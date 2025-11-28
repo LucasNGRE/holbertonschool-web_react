@@ -1,7 +1,7 @@
 import WithLogging from '../HOC/WithLogging';
 import React, { Component } from 'react';
 
-class Login extends Component {
+export class Login extends Component {
 
   constructor(props) {
     super(props);
