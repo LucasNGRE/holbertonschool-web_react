@@ -21,12 +21,21 @@ class Login extends Component {
   }
 
     handleChangeEmail = (e) => {
-    this.setState({ email: e.target.value }, this.updateEnableSubmit);
-  }
+  const email = e.target.value;
+  this.setState(prev => {
+    const enableSubmit = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && prev.password.length >= 8;
+    return { email, enableSubmit };
+  });
+}
 
-  handleChangePassword = (e) => {
-    this.setState({ password: e.target.value }, this.updateEnableSubmit);
-  }
+handleChangePassword = (e) => {
+  const password = e.target.value;
+  this.setState(prev => {
+    const enableSubmit = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(prev.email) && password.length >= 8;
+    return { password, enableSubmit };
+  });
+}
+
 
   updateEnableSubmit = () => {
   const { email, password } = this.state;
