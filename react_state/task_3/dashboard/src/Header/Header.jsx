@@ -1,7 +1,8 @@
 import { Component } from 'react';
 import logo from '../assets/holberton-logo.jpg';
-import AppContext from '../App/AppContext';
+import AppContext from '../Context/context';
 
+test
 export default class Header extends Component {
   static contextType = AppContext;
 
