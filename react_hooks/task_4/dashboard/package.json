@@ -13,6 +13,8 @@
   "dependencies": {
     "@fontsource/roboto": "^5.2.5",
     "@tailwindcss/vite": "^4.0.7",
+    "aphrodite": "^2.4.0",
+    "axios": "^1.13.2",
     "identity-obj-proxy": "^3.0.0",
     "jsdom": "^25.0.0",
     "playwright": "1.52",
