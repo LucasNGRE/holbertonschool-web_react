@@ -1,3 +1,4 @@
+import { useState, useCallback, useContext } from 'react';
 import Notifications from '../Notifications/Notifications';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
@@ -21,15 +22,16 @@ const coursesList = [
 ];
 
 export default function App() {
+  const context = useContext(newContext);
+
   const [displayDrawer, setDisplayDrawer] = useState(true);
-  const [user, setUser] = useState({ ...newContext.user });
+  const [user, setUser] = useState(context.user);
   const [notifications, setNotifications] = useState(notificationsList);
-  
 
   const markNotificationAsRead = useCallback((id) => {
     console.log(`Notification ${id} has been marked as read`);
-    setNotifications((prevNotifications) =>
-      prevNotifications.filter((notification) => notification.id !== id)
+    setNotifications((prev) =>
+      prev.filter((notification) => notification.id !== id)
     );
   }, []);
 
@@ -72,7 +74,7 @@ export default function App() {
       </div>
 
       <div className="flex-1 flex flex-col">
-        <Header />
+        <Header user={user} logOut={logOut} />
 
         {!isLoggedIn ? (
           <BodySectionWithMarginBottom title="Log in to continue">
