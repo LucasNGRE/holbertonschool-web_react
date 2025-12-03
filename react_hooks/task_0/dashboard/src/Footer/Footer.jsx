@@ -3,7 +3,7 @@ import { getCurrentYear, getFooterCopy } from '../utils/utils';
 import AppContext from '../Context/context';
 
 export default function Footer() {
-  const { user } = useContext(AppContext);
+  const { user, logOut } = useContext(AppContext);
 
   return (
     <div className="
@@ -36,9 +36,11 @@ export default function Footer() {
 
       {user && user.isLoggedIn && (
         <p className="mt-1">
-          <a href="#" className="underline">
-            Contact us
+          Welcome {user.email} (
+          <a href="#" onClick={logOut} className="underline">
+            logout
           </a>
+          )
         </p>
       )}
     </div>
