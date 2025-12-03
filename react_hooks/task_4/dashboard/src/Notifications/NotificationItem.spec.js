@@ -1,14 +1,14 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import NotificationItem from './NotificationItem';
 
-test('it should call markNotificationAsRead with the correct id when the notification item is clicked', () => {
-  const mockMarkNotificationAsRead = jest.fn();
 
+test('it should call markAsRead with the correct id when the notification item is clicked', () => {
+  const mockMarkAsRead = jest.fn();
   const props = {
     id: 42,
     type: 'default',
     value: 'Test notification',
-    markNotificationAsRead: mockMarkNotificationAsRead,
+    markAsRead: mockMarkAsRead,
   };
 
   render(<NotificationItem {...props} />);
@@ -17,69 +17,66 @@ test('it should call markNotificationAsRead with the correct id when the notific
 
   fireEvent.click(liElement);
 
-  expect(mockMarkNotificationAsRead).toHaveBeenCalledTimes(1);
-  expect(mockMarkNotificationAsRead).toHaveBeenCalledWith(42);
+  expect(mockMarkAsRead).toHaveBeenCalledTimes(1);
+  expect(mockMarkAsRead).toHaveBeenCalledWith(42);
 });
 
-describe('NotificationItem - PureComponent behavior', () => {
-  let markNotificationAsRead;
+describe('NotificationItem - React.memo behavior', () => {
+  let markAsRead;
 
   beforeEach(() => {
     jest.clearAllMocks();
-    markNotificationAsRead = jest.fn();
+    markAsRead = jest.fn();
   });
 
-  test('should re-render when props change', () => {
-    const renderSpy = jest.spyOn(NotificationItem.prototype, 'render');
-
-    const { rerender } = render(
+  test('should update when props change', () => {
+    const { rerender, container } = render(
       <NotificationItem
         id={1}
         type="urgent"
         value="New notification"
-        markNotificationAsRead={markNotificationAsRead}
+        markAsRead={markAsRead}
       />
     );
+
+    const firstRender = container.querySelector('[data-notification-type]').textContent;
 
     rerender(
       <NotificationItem
         id={1}
         type="urgent"
         value="Updated notification"
-        markNotificationAsRead={markNotificationAsRead}
+        markAsRead={markAsRead}
       />
     );
 
-    expect(renderSpy).toHaveBeenCalled();
-
-    renderSpy.mockRestore();
+    const secondRender = container.querySelector('[data-notification-type]').textContent;
+    expect(secondRender).not.toBe(firstRender);
+    expect(secondRender).toBe('Updated notification');
   });
 
   test('should not re-render when props do not change', () => {
-    const renderSpy = jest.spyOn(NotificationItem.prototype, 'render');
-
-    const { rerender } = render(
+    const { rerender, container } = render(
       <NotificationItem
         id={1}
         type="urgent"
         value="New notification"
-        markNotificationAsRead={markNotificationAsRead}
+        markAsRead={markAsRead}
       />
     );
 
-    const renderCount = renderSpy.mock.calls.length;
+    const firstElement = container.querySelector('[data-notification-type]');
 
     rerender(
       <NotificationItem
         id={1}
         type="urgent"
         value="New notification"
-        markNotificationAsRead={markNotificationAsRead}
+        markAsRead={markAsRead}
       />
     );
 
-    expect(renderSpy.mock.calls.length).toBe(renderCount);
-
-    renderSpy.mockRestore();
+    const secondElement = container.querySelector('[data-notification-type]');
+    expect(secondElement.textContent).toBe(firstElement.textContent);
   });
 });

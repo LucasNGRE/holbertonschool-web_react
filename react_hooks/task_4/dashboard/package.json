@@ -11,13 +11,11 @@
     "test": "jest"
   },
   "dependencies": {
-    "@fontsource/roboto": "^5.2.5",
-    "@tailwindcss/vite": "^4.0.7",
     "aphrodite": "^2.4.0",
-    "axios": "^1.13.2",
+    "axios": "^1.7.9",
     "identity-obj-proxy": "^3.0.0",
+    "jest-mock-axios": "^4.8.0",
     "jsdom": "^25.0.0",
-    "playwright": "1.52",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -31,7 +29,6 @@
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.1",
-    "babel-jest": "^29.7.0",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.2",
     "eslint-plugin-react-hooks": "^4.6.2",
@@ -43,6 +40,7 @@
   "jest": {
     "testEnvironment": "jsdom",
     "moduleNameMapper": {
+      "^axios$": "jest-mock-axios",
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/fileTransformer.js",
       "^.+\\.(css|less|scss)$": "identity-obj-proxy"
     },

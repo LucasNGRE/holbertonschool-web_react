@@ -30,4 +30,3 @@ test('it should render the CourseList component with 1 row', () => {
   expect(rowElement).toHaveLength(1)
   expect(rowText).toBeInTheDocument()
 });
-

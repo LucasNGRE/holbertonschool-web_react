@@ -44,3 +44,45 @@ test('it should render 2 "td" elements inside a "tr" element when isHeader is fa
   expect(trElement).toBeInTheDocument();
   expect(tdElements).toHaveLength(2);
 });
+
+test('it should check when the isHeader prop is true, the cell background color is #deb5b545', () => {
+  render(
+    <table>
+      <tbody>
+        <CourseListRow isHeader={true} textFirstCell="First" textSecondCell={null} />
+      </tbody>
+    </table>
+  )
+
+  const trElement = screen.getByRole('row');
+
+  expect(trElement.className).toMatch(/headerRow_/);
+});
+
+test('it should check when the isHeader prop is true and secondTextCell is not null, the cell background color is #deb5b545', () => {
+  render(
+    <table>
+      <tbody>
+        <CourseListRow isHeader={true} textFirstCell="First" textSecondCell="Second" />
+      </tbody>
+    </table>
+  )
+
+  const trElement = screen.getByRole('row');
+
+  expect(trElement.className).toMatch(/headerRow_/);
+});
+
+test('it should check when the isHeader prop is false, the cell background color is #f5f5f5ab', () => {
+  render(
+    <table>
+      <tbody>
+        <CourseListRow isHeader={false} textFirstCell="Data1" textSecondCell="Data2" />
+      </tbody>
+    </table>
+  )
+
+  const trElement = screen.getByRole('row');
+
+  expect(trElement.className).toMatch(/row_/);
+});
