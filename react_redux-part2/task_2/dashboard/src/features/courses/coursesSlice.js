@@ -11,11 +11,13 @@ const ENDPOINTS = {
   courses: `${API_BASE_URL}/courses.json`,
 };
 
+// Thunk pour récupérer les cours
 export const fetchCourses = createAsyncThunk(
   'courses/fetchCourses',
   async () => {
     const response = await axios.get(ENDPOINTS.courses);
-    return response.data.courses;
+    // Ajout de la propriété isSelected à chaque cours
+    return response.data.courses.map(course => ({ ...course, isSelected: false }));
   }
 );
 
@@ -24,33 +26,24 @@ const coursesSlice = createSlice({
   initialState,
   reducers: {
     selectCourse: (state, action) => {
-      const course = state.courses.find(
-        (course) => course.id === action.payload
-      );
-      if (course) {
-        course.isSelected = true;
-      }
+      const course = state.courses.find(course => course.id === action.payload);
+      if (course) course.isSelected = true;
     },
     unSelectCourse: (state, action) => {
-      const course = state.courses.find(
-        (course) => course.id === action.payload
-      );
-      if (course) {
-        course.isSelected = false;
-      }
+      const course = state.courses.find(course => course.id === action.payload);
+      if (course) course.isSelected = false;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchCourses.fulfilled, (state, action) => {
-        state.courses = action.payload.map(course => ({ ...course, isSelected: false }));
+        state.courses = action.payload;
       })
       .addCase(logout, (state) => {
-        state.courses = initialState.courses;
+        state.courses = [];
       });
   },
 });
 
 export const { selectCourse, unSelectCourse } = coursesSlice.actions;
 export default coursesSlice.reducer;
- 

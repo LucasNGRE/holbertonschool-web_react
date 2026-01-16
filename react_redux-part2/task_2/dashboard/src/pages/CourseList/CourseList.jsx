@@ -1,5 +1,4 @@
 import CourseListRow from './CourseListRow/CourseListRow';
-import { useSelector } from 'react-redux';
 import { StyleSheet, css } from 'aphrodite';
 import WithLogging from '../../components/HOC/WithLogging';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,43 +30,35 @@ function CourseList() {
   const { courses } = useSelector((state) => state.courses);
   const dispatch = useDispatch();
 
-function onChangeRow(id, checked) {
-    // Dispatch action to select/unselect course
-  if (checked === true) {
-    dispatch(selectCourse(id));
-  } else {
-    dispatch(unSelectCourse(id));
-  }
-}
+  const onChangeRow = (id, checked) => {
+    if (checked) dispatch(selectCourse(id));
+    else dispatch(unSelectCourse(id));
+  };
 
   return (
     <div className={css(styles.courses)}>
-      {courses.length > 0 ? (
-        <table id="CourseList"  className={css(styles.table)}>
-          <thead>
-            <CourseListRow textFirstCell="Available courses" isHeader={true} />
-            <CourseListRow textFirstCell="Course name" textSecondCell="Credit" isHeader={true} />
-          </thead>
-          <tbody>
-            {courses.map((course) => (
+      <table id="CourseList" className={css(styles.table)}>
+        <thead>
+          <CourseListRow textFirstCell="Available courses" isHeader={true} />
+          <CourseListRow textFirstCell="Course name" textSecondCell="Credit" isHeader={true} />
+        </thead>
+        <tbody>
+          {courses.length > 0 ? (
+            courses.map((course) => (
               <CourseListRow
                 key={course.id}
+                id={course.id}
                 textFirstCell={course.name}
                 textSecondCell={course.credit}
                 isChecked={course.isSelected}
                 onChangeRow={onChangeRow}
-                id={course.id}
               />
-            ))}
-          </tbody>
-        </table>
-      ) : (
-        <table id="CourseList" className={css(styles.table)}>
-          <thead>
-            <CourseListRow isHeader={true} textFirstCell="No course available yet" />
-          </thead>
-        </table>
-      )}
+            ))
+          ) : (
+            <CourseListRow textFirstCell="No course available yet" isHeader={true} />
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }

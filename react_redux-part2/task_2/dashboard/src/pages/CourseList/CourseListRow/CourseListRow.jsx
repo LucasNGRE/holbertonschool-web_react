@@ -6,9 +6,6 @@ const styles = StyleSheet.create({
   },
   row: {
     backgroundColor: '#f5f5f5ab'
-  },
-  checkbox: {
-    marginRight: '10px',
   }
 });
 
@@ -22,21 +19,23 @@ export default function CourseListRow({
 }) {
   const rowStyle = isHeader ? styles.headerRow : styles.row;
 
-  return isHeader ? (
-    <tr className={css(rowStyle)}>
-      <th colSpan={textSecondCell ? 1 : 2}>{textFirstCell}</th>
-      {textSecondCell ? <th>{textSecondCell}</th> : null}
-    </tr>
-  ) : (
+  if (isHeader) {
+    return (
+      <tr className={css(rowStyle)}>
+        <th>{textFirstCell}</th>
+        {textSecondCell && <th>{textSecondCell}</th>}
+      </tr>
+    );
+  }
+
+  return (
     <tr className={css(rowStyle)}>
       <td>
-        {/* Checkbox dans la même cellule que le nom du cours */}
         <input
           type="checkbox"
-          className={css(styles.checkbox)}
           checked={isChecked}
           onChange={(e) => onChangeRow && onChangeRow(id, e.target.checked)}
-        />
+        />{' '}
         {textFirstCell}
       </td>
       <td>{textSecondCell}</td>
