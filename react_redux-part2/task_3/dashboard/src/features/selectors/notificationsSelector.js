@@ -1,5 +1,4 @@
 import { createSelector } from '@reduxjs/toolkit'
-import { createSelector } from '@reduxjs/toolkit';
 
 const selectNotifications = (state) => state.notifications.notifications;
 const selectFilter = (_, filter) => filter;

@@ -4,7 +4,7 @@ import { markNotificationAsRead } from "../../features/notifications/notificatio
 import NotificationItem from "../NotificationItem/NotificationItem";
 import { StyleSheet, css } from "aphrodite";
 import closeIcon from "../../assets/close-icon.png";
-import { getFilteredNotifications } from "../../features/selectors/notificationSelector";
+import { getFilteredNotifications } from "../../features/selectors/notificationsSelector";
 
 
 const opacityKeyframes = {
@@ -114,6 +114,11 @@ const Notifications = memo(function Notifications() {
     setCurrentFilter('default');
   };
 
+  const handleSetFilterAll = () => {
+  setCurrentFilter('all');
+};
+
+
 
   return (
     <>
@@ -135,9 +140,11 @@ const Notifications = memo(function Notifications() {
               <img src={closeIcon} alt="close icon" />
             </button>
             <div>
+              <button onClick={handleSetFilterAll}>All</button>
               <button onClick={handleSetFilterUrgent}>‼️</button>
               <button onClick={handleSetFilterDefault}>??</button>
             </div>
+
 
             <ul className={css(styles.ul)}>
               {filteredNotifications.map((notification) => (
@@ -146,9 +153,9 @@ const Notifications = memo(function Notifications() {
                   id={notification.id}
                   type={notification.type}
                   value={notification.value}
-                  html={notification.html}
                   markAsRead={handleMarkNotificationAsRead}
                 />
+
               ))}
             </ul>
           </>
